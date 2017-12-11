@@ -1,0 +1,19 @@
+.screen {
+
+    height: calc(100vh - #{$content-padding-mobile*2 + $navigation-height-mobile});
+    position: relative;
+
+    &__content {
+        @extend %layer;
+        opacity: 0;
+        transition: all .3s;
+        z-index: -1;
+
+        @for $i from 0 through 3 {
+            [data-view="#{$i}"] &--#{$i} {
+                opacity: 1;
+                z-index: 0;
+            }
+        }
+    }
+}
