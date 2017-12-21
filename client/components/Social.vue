@@ -1,46 +1,74 @@
 <template>
-    <social-sharing url="http://localhost:4000/"
-                      title="Holiday Card"
-                      description="Lorem ipsum"
-                      quote="abc"
-                      hashtags="designory, holidaycard"
-                      inline-template>
-                      
-        <div class="social">
-            <network network="email" class="social__elm">
-                <i class="fa fa-envelope"></i> Email
-            </network>
-            <network network="facebook" class="social__elm">
-            <i class="fa fa-facebook"></i> Facebook
-            </network>
-            <network network="googleplus" class="social__elm">
-            <i class="fa fa-google-plus"></i> Google +
-            </network>
-            <network network="linkedin" class="social__elm">
-            <i class="fa fa-linkedin"></i> LinkedIn
-            </network>
-            <network network="pinterest" class="social__elm">
-            <i class="fa fa-pinterest"></i> Pinterest
-            </network>
-            <network network="sms" class="social__elm">
-            <i class="fa fa-commenting-o"></i> SMS
-            </network>
-            <network network="twitter" class="social__elm">
-            <i class="fa fa-twitter"></i> Twitter
-            </network>
+    <div class="social">
+
+        <!-- Email -->
+        <social-sharing :url="location"
+                        title="I found you this special holiday!"
+                        description="Need an excuse to celebrate every day? Try this!"
+                        inline-template>
+                <network network="email" class="social__elm social__elm--email">
+                    Email
+                </network>
+        </social-sharing>
+        
+        <!-- facebook -->
+        <social-sharing :url="location"  
+                        title="Designory’s Holiday Card"
+                        quote="Need an excuse to celebrate every day? Now you have it. #holidayeveryday #designory #agencylife"
+                        inline-template>
+                <network network="facebook" class="social__elm social__elm--fb">
+                    Facebook
+                </network>
+        </social-sharing> 
+
+        <!-- LinkedIn -->
+        <social-sharing :url="location"
+                        title="Designory’s Holiday Card"
+                        description="Give your colleagues a reason to celebrate every day. #holidayeveryday #designory #agencylife"
+                        inline-template>
+                <network network="linkedin" class="social__elm social__elm--linked">
+                    LinkedIn
+                </network>          
+        </social-sharing>
+
+        <!-- Twitter -->
+        <social-sharing :url="location"
+                        title="Need an excuse to celebrate every day? Now you have it. #holidayeveryday #designory #agencylife"
+                        inline-template>
+                <network network="twitter" class="social__elm social__elm--twitter">
+                    Twitter
+                </network>
+        </social-sharing>
+    
+    </social-sharing>
+            <!-- 
+            
+             -->
         </div>
-    </social-sharing> 
+
+    <!--   -->
 </template>
 
 <script>
-import Vue from 'vue';
-import SocialSharing from 'vue-social-sharing';
+import Vue from 'vue'
+import SocialSharing from 'vue-social-sharing'
+import { trackingBtn } from '../scripts/utils'
 
 Vue.use(SocialSharing);
 
 export default {
   components: {
     SocialSharing
+  },
+  computed: {
+      location() {
+          return this.$store.state.location;
+      }
+  },
+  mounted() {
+  	this.$root.$on('social_shares_open', function (network, url) {
+          trackingBtn(network);
+    });
   }
 }
 </script>

@@ -1,0 +1,96 @@
+.date {
+    display: flex;
+    flex-direction: column;
+    height: 100vh; // will be limited with js calculated max-height;
+    min-height: 235px;
+    opacity: 0;
+    padding: $content-padding-mobile*2 $content-padding-mobile 0 $content-padding-mobile;
+    transition: opacity .2s;
+    
+    @include bp('lg') {
+        min-height: 440px;
+        padding-top: $content-padding-mobile*4;
+    }
+
+    &--animated {
+        animation: 1s fadeIn;
+        opacity: 1;
+    }
+
+    &__sub-title {
+        flex: 0 0 auto;
+        font-size: .875rem;
+        font-weight: 400;
+        margin: 0;
+        text-align: center;
+
+        @include bp('xs') {
+            margin-bottom: 1rem;
+        }
+
+        @include bp('md') {
+            padding-top: 10vh;  // extra padding for tablet - designers request
+        }
+
+        @include bp('lg') {
+            padding-top: 0;
+            font-size: 2.25rem;
+            margin-bottom: .5rem;
+        }
+    }
+
+    &__title {
+        flex: 0 0 auto;
+        font-size: 2.75rem;
+        text-align: center;
+
+        @include bp('xs') {
+            font-size: 2.25rem;
+        }
+
+        @include bp('md') {
+            font-size: 3.5rem;
+        }
+
+        @include bp('lg') {
+            font-size: 6rem;
+            line-height: 6rem;
+        }
+    }
+
+    &__desc {
+        align-items: center;
+        display: flex;
+        flex: 1 1 auto;
+        font-size: 1.5rem;
+        font-weight: 300;
+        justify-content: center;
+        margin: 0;
+        text-align: center;
+
+        @include bp('xs') {
+            font-size: 1.25rem;
+        }
+
+        @include bp('lg') {
+            font-size: 1.75rem;
+        }
+    }
+
+    &__date {
+        text-decoration: underline;
+    }
+}
+
+@keyframes fadeIn {
+    0% {
+        opacity: 0;
+        transform: scale(.98);
+    }
+    30% {
+        transform: scale(1);
+    }
+    100% {
+        opacity: 1;
+    }
+}

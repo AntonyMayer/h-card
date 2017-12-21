@@ -1,0 +1,45 @@
+.welcome {
+    display: none;
+    height: calc(100vh - 60px);
+    padding: $content-padding-mobile;
+
+    @include bp('md') {
+        display: flex;
+        align-items: center;    
+        justify-content: center;
+        flex-direction: column;
+        text-align: center;
+    }
+
+    @include bp('lg') {
+        min-height: 710px;
+    }
+    
+    // container with text for iPhone 5 only => resolution 320px
+    &--ip5 {
+        display: none;
+
+        @include bp('xs') {
+            display: block;
+        }
+    }
+
+    &--mobile {
+        display: none;
+        
+        @media screen and (min-width: 375px) and (max-width: 767px) {
+            display: block;
+        }
+    }
+
+    &__txt {
+        
+        @include bp('ipad') {
+            font-size: 3rem;
+        }
+
+        @include bp('lg') {
+            font-size: 3.5rem;
+        }
+    }
+}

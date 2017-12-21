@@ -1,18 +1,51 @@
 .screen {
-
-    height: calc(100vh - #{$content-padding-mobile*2 + $navigation-height-mobile});
+    max-height: calc(100vh - #{$content-padding-mobile*2 + 85px}); // +85px to preserve space for sharing widgets view=2
     position: relative;
-
+    
     &__content {
         @extend %layer;
-        opacity: 0;
-        transition: all .3s;
-        z-index: -1;
+        padding: $content-padding-mobile;
+        pointer-events: none;        
+        transition: transform .5s;
 
-        @for $i from 0 through 3 {
-            [data-view="#{$i}"] &--#{$i} {
+        &--0 {
+            height: 100vh;
+            padding: 0;
+            pointer-events: all;
+            transform: translateX(0);
+
+            [data-view="1"] &,
+            [data-view="2"] & {
+                pointer-events: none;
+                transform: translateX(-100%);
+            }
+        }
+
+        &--1 {
+            opacity: 0;
+            padding: calc(45vh - 100px) 20px 0 20px;
+            transform: scale(.98);
+            transition: all .1s;
+
+            @include bp('lg') {
+                padding: 0;
+            }
+
+            [data-view="1"] & {
                 opacity: 1;
-                z-index: 0;
+                pointer-events: all;
+                transition: all .3s .2s;
+                transform: scale(1);
+            }
+        }
+
+        &--2 {
+            padding: 0;
+            transform: translateX(100%);
+
+            [data-view="2"] & {
+                pointer-events: all;
+                transform: translateX(0);
             }
         }
     }

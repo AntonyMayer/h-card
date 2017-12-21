@@ -16,9 +16,16 @@ function pushState(params) {
 
         // push state
         router.push({
-            path: `/params`,
+            path: `/`,
             query: params
         });
+
+        // update page title only on resulting screen
+        if (params.view === 2) document.title = `Designory’s Holiday Card - ${store.state.holiday.title}`;
+        if (params.view !== 2) document.title = `Designory’s Holiday Card`;
+
+        // update current location info for sharing widget
+        store.state.location = window.location.href;
 
         resolve(params);
     });
@@ -88,7 +95,33 @@ function normalizeParams({ view, month, date }) {
  * @returns {object} data for holiday, falls back Jan 1st if fails for some reason
  */
 function findHoliday(month, date, arr) {
-    for (let day of arr) if (month === day.m && date === day.d) return day;
+    let itnMonth = parseInt(month),
+        intDate = parseInt(date);
+
+    for (let day of arr) if (itnMonth === day.m && intDate === day.d) return day;
+    // else if not found return 1st 'available' day of the month
+    for (let day of arr) if (itnMonth === day.m) return day;
 }
 
-export { pushState, setView, setMonth, setDate, setFullDate, normalizeParams };
+/**
+ * Updating GA
+ * @param {string} label custom label for button to be tracked with GA
+ */
+function trackingBtn(label) {
+    window.dataLayer.push({ 
+        'event': 'buttonClick', 
+        'buttonName': label
+    });
+}
+
+/**
+ * Updating ga tracking (+ 1 for pages to be labeled as 1,2,3 instead of 0,1,2)
+ */
+function trackingPage() {
+    window.dataLayer.push({ 
+        'event': 'virtualPage', 
+        'pageNo': `${Number(store.state.params.view) + 1}` 
+    });
+}
+
+export { pushState, setView, setDate, normalizeParams, trackingBtn, trackingPage };

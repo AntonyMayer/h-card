@@ -1,10 +1,36 @@
 .txt {
     font-size: 1.5rem;
+    font-weight: 400;
     line-height: 1.2;
     margin-bottom: 1rem;
 
-    &--strong {}
+    @include bp('lg') {
+        font-size: 4rem;
+    }
+
     &--center {
         text-align: center;
+    }
+    
+    &--center-xs {
+        @include bp('sm') {
+            text-align: center;
+        }
+    }
+
+    &--center-lg {
+        @include bp('lg') {
+            text-align: center;
+        }
+    }
+
+    &--thin {
+        font-weight: 300;
+    }
+
+    &--show-xs {
+        @include bp('lg') {
+            display: none;
+        }
     }
 }

@@ -1,0 +1,103 @@
+.options {
+
+    $space-for-icons: 60px;
+
+    padding: 0 $content-padding-mobile;
+    margin: $space-for-icons auto 0 auto; // to preserve space for widget icons
+    max-width: 1024px;
+    width: 100%;
+    
+    @include bp('md') {
+        transform: translateY(0);
+    }
+    
+    @include bp('ipad') {
+        transform: translateY(-60px); // small position adjustment for tablet => designers request
+    }
+
+    &__item {
+        cursor: pointer;
+        float: left;
+        position: relative;
+        width: 33.3333%;
+
+        &--dice-animated {
+            animation: shake 0.82s cubic-bezier(.36,.07,.19,.97) both;
+        }
+    }
+
+    &__icon {
+        display: block;
+        height: 40px;
+        margin: 0 auto;
+
+        @include bp('lg') {
+            height: 50px;
+        }
+    }
+
+    &__icon-desc {
+        display: none;
+        letter-spacing: 1px;
+
+        @include bp('lg') {
+            display: block;
+            font-size: .8rem;
+            text-align: center;
+            padding-top: 1.5rem;
+        }
+    }
+
+    &__widget {
+        display: inline-block;
+        left: 0;
+        min-width: calc(100vw - #{$content-padding-mobile*2});
+        opacity: 0;
+        pointer-events: none;
+        position: absolute;
+        top: -40px;
+        transition: opacity .2s, top .2s;
+        z-index: -1;
+
+        @include bp('lg') {
+            min-width: 400px;
+            text-align: center;
+        }
+
+        &--open {
+            opacity: 1;
+            pointer-events: all;
+            top: -70px;
+        }
+
+        &--0 {
+            @include bp('lg') {
+                left: 50%;
+                transform: translateX(-50%);
+            }
+        }
+
+        &--1 {
+            left: 50%;
+            transform: translateX(-50%);
+        }
+    }
+}
+
+@keyframes shake {
+  10%, 90% {
+    transform: translate3d(-1px, 0, 0);
+  }
+  
+  20%, 80% {
+    transform: translate3d(2px, 0, 0);
+  }
+
+  30%, 50%, 70% {
+    transform: translate3d(-4px, 0, 0);
+  }
+
+  40%, 60% {
+    transform: translate3d(4px, 0, 0);
+  }
+}
